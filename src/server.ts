@@ -1,7 +1,7 @@
 import express from "express";
 import { sequelize } from "./database";
 import { adminJs, adminJsRouter } from "./adminjs";
-import { router } from "./adminjs/routes";
+import { router } from "./routes";
 
 const app = express();
 
