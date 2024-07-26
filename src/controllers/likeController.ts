@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { AuthenticatedRequest } from "../middlewares/auth";
-import { likeService } from "../services/LikeService";
+import { likeService } from "../services/likeService";
 
 export const likesController = {
   // POST /likes
@@ -16,5 +16,16 @@ export const likesController = {
         return res.status(400).json({ message: err.message });
       }
     }
+  },
+
+  //DELETE /likes/:id
+  delete: async (req: AuthenticatedRequest, res: Response) => {
+    const userId = req.user!.id;
+    const courseId = req.params.id;
+
+    try {
+      await likeService.delete(userId, Number(courseId));
+      return res.status(204).send();
+    } catch (error) {}
   },
 };
