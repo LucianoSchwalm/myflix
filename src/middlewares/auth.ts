@@ -18,18 +18,45 @@ export function ensureAuth(
   if (!authorizationHeader)
     return res
       .status(401)
-      .json({ message: "Unauthorized Token: Token not found" });
+      .json({ message: "Unauthorized Token: Token not found." });
   const token = authorizationHeader.replace(/Bearer /, "");
 
-  jwtService.verifyToken(token, (err, decoded) => {
+  jwtService.verifyToken(token, async (err, decoded) => {
     if (err || typeof decoded === "undefined")
       return res
         .status(401)
-        .json({ message: "Unauthorized token: Invalid Token" });
+        .json({ message: "Unauthorized token: Invalid Token." });
 
-    userService.findByEmail((decoded as JwtPayload).email).then((user) => {
-      req.user = user;
-      next();
-    });
+    const user = await userService.findByEmail((decoded as JwtPayload).email);
+    req.user = user;
+    next();
+  });
+}
+
+export function ensureAuthByQuery(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) {
+  const { token } = req.query;
+
+  if (!token)
+    return res
+      .status(401)
+      .json({ message: "Unauthorized Token: Token not found" });
+  if (typeof token !== "string")
+    return res
+      .status(400)
+      .json({ message: "Token param must be of type string." });
+
+  jwtService.verifyToken(token, async (err, decoded) => {
+    if (err || typeof decoded === "undefined")
+      return res
+        .status(401)
+        .json({ message: "Unauthorized token: Invalid Token." });
+
+    const user = await userService.findByEmail((decoded as JwtPayload).email);
+    req.user = user;
+    next();
   });
 }
