@@ -6,6 +6,7 @@ import { authController } from "./controllers/authController";
 import { ensureAuth, ensureAuthByQuery } from "./middlewares/auth";
 import { favoriteController } from "./controllers/favoriteController";
 import { likesController } from "./controllers/likeController";
+import { userController } from "./controllers/userController";
 
 const router = express.Router();
 
@@ -39,5 +40,7 @@ router.delete("/favorites/:id", ensureAuth, favoriteController.delete);
 
 router.post("/likes", ensureAuth, likesController.save);
 router.delete("/likes/:id", ensureAuth, likesController.delete);
+
+router.get("/users/current/watching", ensureAuth, userController.watching);
 
 export { router };
