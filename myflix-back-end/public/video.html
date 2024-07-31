@@ -1,0 +1,27 @@
+// public/video.html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Comp atible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testando Streaming</title>
+  </head>
+  <body>
+    <h2>Testando Streaming</h2>
+
+    <video id="videoplayer" controls>
+      <source
+        src="/episodes/stream?videoUrl=videos/course-45/typescript-na-pratica.mp4&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZmlyc3ROYW1lIjoiTHVjYXMiLCJlbWFpbCI6Imx1Y2FzcXVlaXJvZ2FkZXZAZ21haWwuY29tIiwiaWF0IjoxNzIyMDAzMDI0LCJleHAiOjE3MjI2MDc4MjR9.kx6md6ksPoX8br6Ulea64GWwgy3i_iA6a5lvmzX0DaY"
+        type="video/mp4"
+      />
+    </video>
+
+    <script>
+      var myvideo = document.getElementById("videoplayer");
+      myvideo.currentTime = 70;
+      myvideo.play();
+    </script>
+  </body>
+</html>
