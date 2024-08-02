@@ -1,9 +1,12 @@
 import styles from "../styles/HomeNoAuth.module.scss";
+import HeaderNoAuth from "../components/homeNoAuth/headerNoAuth/page";
 
 const HomeNotAuth = () => {
   return (
     <>
-      <main>Teste xD</main>
+      <main>
+        <HeaderNoAuth />
+      </main>
     </>
   );
 };
