@@ -3,7 +3,7 @@ import { Button, Container } from "reactstrap";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 
-export default function HeaderNoAuth() {
+export const HeaderNoAuth = () => {
   return (
     <>
       <div className={styles.ctaSection}>
@@ -40,4 +40,4 @@ export default function HeaderNoAuth() {
       </Container>
     </>
   );
-}
+};
