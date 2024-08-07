@@ -1,13 +1,14 @@
-import { CourseType } from "@/services/courseService";
+"use client";
+
+import { courseService, CourseType } from "@/services/courseService";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
 import SlideCard from "../slideCard/slideCard";
 
-interface props {
-  course: CourseType[];
-}
+export async function SlideComponent() {
+  const res = await courseService.getNewestCourses();
+  const course = res.data;
 
-const SlideComponent = function ({ course }: props) {
   return (
     <>
       <div>
@@ -19,7 +20,7 @@ const SlideComponent = function ({ course }: props) {
             pagination: false,
           }}
         >
-          {course?.map((course) => (
+          {course?.map((course: CourseType) => (
             <SplideSlide key={course.id}>
               <SlideCard course={course} />
             </SplideSlide>
@@ -28,6 +29,6 @@ const SlideComponent = function ({ course }: props) {
       </div>
     </>
   );
-};
+}
 
 export default SlideComponent;
