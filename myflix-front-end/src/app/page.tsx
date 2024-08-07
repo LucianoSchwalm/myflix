@@ -4,6 +4,7 @@ import { PresentationSection } from "../components/homeNoAuth/presentationSectio
 import { CardSection } from "@/components/homeNoAuth/cardSection/cardSection";
 import { SlideSection } from "@/components/homeNoAuth/slideSection/slideSection";
 import { courseService } from "@/services/courseService";
+import { Footer } from "@/components/common/footer/footer";
 
 const HomeNotAuth = async () => {
   const res = await courseService.getNewestCourses();
@@ -17,6 +18,7 @@ const HomeNotAuth = async () => {
         </div>
         <CardSection />
         <SlideSection course={course} />
+        <Footer />
       </main>
     </>
   );
