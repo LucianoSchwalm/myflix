@@ -3,13 +3,51 @@
 import { HeaderGeneric } from "@/components/common/headerGeneric/headerGeneric";
 import styles from "../../styles/registerLogin.module.scss";
 import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { Metadata } from "next";
 import Script from "next/script";
 import { Footer } from "@/components/common/footer/footer";
+import { FormEvent, useState } from "react";
+import { authService } from "@/services/authService";
+import { useRouter } from "next/navigation";
+import { ToastComponent } from "@/components/common/toast/toast";
 
 const Register = () => {
-  const handleRegister = () => {
-    return null;
+  const router = useRouter();
+  const [toastIsOpen, setToastIsOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const firstName = formData.get("firstName")!.toString();
+    const lastName = formData.get("lastName")!.toString();
+    const phone = formData.get("phone")!.toString();
+    const birth = formData.get("birth")!.toString();
+    const email = formData.get("email")!.toString();
+    const password = formData.get("password")!.toString();
+    const confirmPassword = formData.get("confirmPassword")!.toString();
+    const params = { firstName, lastName, phone, birth, email, password };
+
+    if (password != confirmPassword) {
+      setToastIsOpen(true);
+      setTimeout(() => {
+        setToastIsOpen(false);
+      }, 1000 * 3);
+      setToastMessage("Senha e confirmação diferentes.");
+
+      return;
+    }
+
+    const { data, status } = await authService.register(params);
+
+    if (status === 201) {
+      router.push("/login?registred=true");
+    } else {
+      setToastIsOpen(true);
+      setTimeout(() => {
+        setToastIsOpen(false);
+      }, 1000 * 3);
+      setToastMessage(data.message);
+    }
   };
 
   return (
@@ -132,6 +170,11 @@ const Register = () => {
           </Form>
         </Container>
         <Footer />
+        <ToastComponent
+          color="bg-danger"
+          isOpen={toastIsOpen}
+          message={toastMessage}
+        />
       </main>
     </>
   );
