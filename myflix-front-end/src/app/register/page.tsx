@@ -1,19 +1,26 @@
 "use client";
 
-import { HeaderGeneric } from "@/components/common/headerGeneric/headerGeneric";
+import { HeaderGeneric } from "@/components/common/HeaderGeneric/headerGeneric";
 import styles from "../../styles/registerLogin.module.scss";
 import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
 import Script from "next/script";
-import { Footer } from "@/components/common/footer/footer";
-import { FormEvent, useState } from "react";
+import { Footer } from "@/components/common/Footer/footer";
+import { FormEvent, useEffect, useState } from "react";
 import { authService } from "@/services/authService";
 import { useRouter } from "next/navigation";
-import { ToastComponent } from "@/components/common/toast/toast";
+import { ToastComponent } from "@/components/common/Toast/toast";
 
 const Register = () => {
   const router = useRouter();
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  useEffect(() => {
+    if (sessionStorage.getItem("myflix-token")) {
+      router.push("/home");
+    }
+  }, []);
+
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

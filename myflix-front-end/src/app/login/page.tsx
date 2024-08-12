@@ -1,12 +1,12 @@
 "use client";
 
-import { HeaderGeneric } from "@/components/common/headerGeneric/headerGeneric";
+import { HeaderGeneric } from "@/components/common/HeaderGeneric/headerGeneric";
 import styles from "../../styles/registerLogin.module.scss";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
-import { Footer } from "@/components/common/footer/footer";
+import { Footer } from "@/components/common/Footer/footer";
 import { FormEvent, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { ToastComponent } from "@/components/common/toast/toast";
+import { ToastComponent } from "@/components/common/Toast/toast";
 import { authService } from "@/services/authService";
 
 const Login = () => {
@@ -15,6 +15,12 @@ const Login = () => {
   const [toastColor, setToastColor] = useState("");
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  useEffect(() => {
+    if (sessionStorage.getItem("myflix-token")) {
+      router.push("/home");
+    }
+  }, []);
 
   useEffect(() => {
     const registerSuccess = searchParams.get("registred");

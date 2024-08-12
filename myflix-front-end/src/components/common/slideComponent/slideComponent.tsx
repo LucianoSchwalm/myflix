@@ -3,7 +3,7 @@
 import { CourseType } from "@/services/courseService";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
-import SlideCard from "../slideCard/slideCard";
+import SlideCard from "../SlideCard/slideCard";
 
 interface props {
   newestCourses: CourseType[];

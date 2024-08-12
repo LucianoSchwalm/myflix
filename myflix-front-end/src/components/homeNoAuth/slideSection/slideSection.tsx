@@ -1,7 +1,7 @@
 "use client";
 import styles from "./styles.module.scss";
 import { Button, Container } from "reactstrap";
-import SlideComponent from "@/components/common/slideComponent/slideComponent";
+import SlideComponent from "@/components/common/SlideComponent/slideComponent";
 import Link from "next/link";
 import { CourseType } from "@/services/courseService";
 
