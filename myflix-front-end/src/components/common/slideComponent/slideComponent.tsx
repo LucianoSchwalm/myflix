@@ -21,7 +21,7 @@ export function SlideComponent({ newestCourses }: props) {
 
   return (
     <>
-      <div className="py-4">
+      <div className="py-4 d-flex flex-column align-items-center">
         <Splide
           options={{
             type: "loop",

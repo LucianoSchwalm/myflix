@@ -1,13 +1,14 @@
 "use client";
 
 import { FeaturedSection } from "@/components/HomeAuth/FeaturedSection/featuredSection";
-import { HeaderAuth } from "../../components/common/HeaderAuth/headerAuth";
+import { NewestCategory } from "@/components/HomeAuth/NewestCategory/newestCategory";
 
 const Home = () => {
   return (
     <>
       <main>
         <FeaturedSection />
+        <NewestCategory />
       </main>
     </>
   );
