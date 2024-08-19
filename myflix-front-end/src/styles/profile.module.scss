@@ -124,6 +124,14 @@
     border-color: $lightRed;
     color: $lightGray;
   }
+  &:active {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  &:focus {
+    background-color: transparent;
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 991px) {
