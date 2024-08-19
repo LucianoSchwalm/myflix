@@ -1,6 +1,6 @@
-import styles from "../../styles/HomeNoAuth.module.scss";
-import { HeaderNoAuth } from "../../components/HomeNoAuth/headerNoAuth/headerNoAuth";
-import { PresentationSection } from "../../components/HomeNoAuth/presentationSection/presentationSection";
+import styles from "../styles/HomeNoAuth.module.scss";
+import { HeaderNoAuth } from "../components/HomeNoAuth/headerNoAuth/headerNoAuth";
+import { PresentationSection } from "../components/HomeNoAuth/presentationSection/presentationSection";
 import { CardSection } from "@/components/HomeNoAuth/cardSection/cardSection";
 import { SlideSection } from "@/components/HomeNoAuth/slideSection/slideSection";
 import { courseService } from "@/services/courseService";
