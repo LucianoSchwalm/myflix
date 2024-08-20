@@ -82,6 +82,46 @@ export const courseService = {
     return res;
   },
 
+  getEpisodes: async (id: number | string) => {
+    const token = sessionStorage.getItem("myflix-token");
+
+    const res = await api
+      .get(`/courses/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+
+        return error.response;
+      });
+
+    return res;
+  },
+
+  like: async (courseId: number | string) => {
+    const token = sessionStorage.getItem("myflix-token");
+
+    const res = await api
+      .post(
+        `/likes`,
+        { courseId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((error) => {
+        console.log(error.response.data.message);
+
+        return error.response;
+      });
+
+    return res;
+  },
+
   addToFav: async (courseId: number | string) => {
     const token = sessionStorage.getItem("myflix-token");
 
@@ -95,6 +135,25 @@ export const courseService = {
           },
         }
       )
+      .catch((error) => {
+        console.log(error.response.data.message);
+
+        return error.response;
+      });
+
+    return res;
+  },
+
+  removeLike: async (courseId: number | string) => {
+    const token = sessionStorage.getItem("myflix-token");
+
+    const res = await api
+      .delete("/likes", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: { courseId },
+      })
       .catch((error) => {
         console.log(error.response.data.message);
 
