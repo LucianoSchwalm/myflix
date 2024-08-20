@@ -2,11 +2,11 @@
 
 import { Button, Col, Container, Form, Row } from "reactstrap";
 import styles from "../../styles/profile.module.scss";
-import { UserForm } from "@/components/profile/User/user";
+import { UserForm } from "@/components/Profile/User/user";
 import { HeaderAuth } from "@/components/common/HeaderAuth/headerAuth";
 import { Footer } from "@/components/common/Footer/footer";
 import { useState } from "react";
-import { PasswordForm } from "@/components/profile/Password/password";
+import { PasswordForm } from "@/components/Profile/Password/password";
 
 const Profile = () => {
   const [form, setForm] = useState("userForm");
