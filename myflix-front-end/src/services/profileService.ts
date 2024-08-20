@@ -8,6 +8,11 @@ interface UserParams {
   created_at: string;
 }
 
+interface PasswordParams {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export const profileService = {
   fetchCurrent: async () => {
     const token = sessionStorage.getItem("myflix-token");
@@ -41,6 +46,25 @@ export const profileService = {
 
         return error;
       });
+    return res.status;
+  },
+  passwordUpdate: async (params: PasswordParams) => {
+    const token = sessionStorage.getItem("myflix-token");
+
+    const res = await api
+      .put("/users/current/password", params, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((error) => {
+        if (error.response.status === 400 || error.response.status === 401) {
+          return error.response;
+        }
+
+        return error;
+      });
+
     return res.status;
   },
 };

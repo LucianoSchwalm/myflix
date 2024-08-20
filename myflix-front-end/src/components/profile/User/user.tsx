@@ -51,7 +51,7 @@ export const UserForm = () => {
       setTimeout(() => setToastIsOpen(false), 1000 * 3);
       if (email != changeEmail) {
         sessionStorage.clear();
-        router.push("/");
+        router.push("/login");
       }
     } else {
       setToastIsOpen(true);
