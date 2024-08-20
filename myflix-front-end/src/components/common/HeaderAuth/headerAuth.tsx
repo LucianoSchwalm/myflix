@@ -1,7 +1,7 @@
 import { Container, Form, Input } from "reactstrap";
 import styles from "./styles.module.scss";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useRouter } from "next/navigation";
 import { profileService } from "@/services/profileService";
@@ -9,6 +9,8 @@ import { profileService } from "@/services/profileService";
 export const HeaderAuth = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [initials, setInitials] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     profileService.fetchCurrent().then((user) => {
@@ -18,6 +20,18 @@ export const HeaderAuth = () => {
     });
   }, []);
 
+  const handleSearch = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    router.push(`/search?name=${searchName}`);
+    setSearchName("");
+  };
+
+  const handleSearchClick = () => {
+    router.push(`/search?name=${searchName}`);
+    setSearchName("");
+  };
+
   const handleOpenModal = () => {
     setModalOpen(true);
   };
@@ -25,8 +39,6 @@ export const HeaderAuth = () => {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-
-  const router = useRouter();
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -44,11 +56,15 @@ export const HeaderAuth = () => {
           />
         </Link>
         <div className="d-flex align-items-center">
-          <Form>
+          <Form onSubmit={handleSearch}>
             <Input
               name="search"
               type="search"
               placeholder="Pesquisar"
+              value={searchName}
+              onChange={(event) => {
+                setSearchName(event.currentTarget.value.toLowerCase());
+              }}
               className={styles.input}
             />
           </Form>
@@ -56,6 +72,7 @@ export const HeaderAuth = () => {
             src="/homeAuth/iconSearch.svg"
             alt="lupaHeader"
             className={styles.searchImg}
+            onClick={handleSearchClick}
           />
           <p className={styles.userProfile} onClick={handleOpenModal}>
             {initials}

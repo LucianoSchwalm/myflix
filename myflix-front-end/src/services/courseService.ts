@@ -27,6 +27,7 @@ export const courseService = {
 
     return res;
   },
+
   getFeaturedCourses: async () => {
     const token = sessionStorage.getItem("myflix-token");
 
@@ -44,6 +45,7 @@ export const courseService = {
 
     return res;
   },
+
   getFavCourses: async () => {
     const token = sessionStorage.getItem("myflix-token");
 
@@ -61,6 +63,25 @@ export const courseService = {
 
     return res;
   },
+
+  getSearch: async (name: string) => {
+    const token = sessionStorage.getItem("myflix-token");
+
+    const res = await api
+      .get(`/courses/search?name=${name}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((error) => {
+        console.log(error.response.data.messsage);
+
+        return error.response;
+      });
+
+    return res;
+  },
+
   addToFav: async (courseId: number | string) => {
     const token = sessionStorage.getItem("myflix-token");
 
@@ -82,6 +103,7 @@ export const courseService = {
 
     return res;
   },
+
   removeFav: async (courseId: number | string) => {
     const token = sessionStorage.getItem("myflix-token");
 
