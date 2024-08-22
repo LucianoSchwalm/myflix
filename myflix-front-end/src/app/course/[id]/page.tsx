@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Button, Container } from "reactstrap";
 import { EpisodeList } from "@/components/EpisodeList/episodeList";
 import { Footer } from "@/components/common/Footer/footer";
+import Image from "next/image";
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
   const [course, setCourse] = useState<CourseType>();
@@ -76,7 +77,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           disabled={course?.episodes?.length === 0}
         >
           ASSISTIR AGORA!
-          <img
+          <Image
             src="/buttonPlay.svg"
             alt="buttonImg"
             className={styles.buttonImg}
@@ -84,14 +85,14 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
         </Button>
         <div className={styles.interactions}>
           {liked ? (
-            <img
+            <Image
               src="/course/iconLiked.svg"
               alt="likedImage"
               className={styles.interactionImages}
               onClick={handleLikeCourse}
             />
           ) : (
-            <img
+            <Image
               src="/course/iconLike.svg"
               alt="likeImage"
               className={styles.interactionImages}
@@ -99,14 +100,14 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
             />
           )}
           {favorited ? (
-            <img
+            <Image
               src="/course/iconFavorited.svg"
               alt="iconFavorited"
               className={styles.interactionImages}
               onClick={handleFavCourse}
             />
           ) : (
-            <img
+            <Image
               src="/course/iconAddFav.svg"
               alt="iconAddFav"
               className={styles.interactionImages}
@@ -128,7 +129,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           </p>
         ) : (
           course?.episodes?.map((episode) => (
-            <EpisodeList key={episode.id} episode={episode} />
+            <EpisodeList key={episode.id} episode={episode} course={course} />
           ))
         )}
       </Container>
