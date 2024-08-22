@@ -30,14 +30,10 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   const handleLikeCourse = async () => {
-    // console.log(params.id);
     if (liked) {
-      // console.log("tira o like");
       await courseService.removeLike(params.id);
       setLiked(false);
     } else {
-      // console.log("bota o like");
-      // console.log(params.id);
       await courseService.like(params.id);
       setLiked(true);
     }
@@ -77,7 +73,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           disabled={course?.episodes?.length === 0}
         >
           ASSISTIR AGORA!
-          <Image
+          <img
             src="/buttonPlay.svg"
             alt="buttonImg"
             className={styles.buttonImg}
@@ -85,14 +81,14 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
         </Button>
         <div className={styles.interactions}>
           {liked ? (
-            <Image
+            <img
               src="/course/iconLiked.svg"
               alt="likedImage"
               className={styles.interactionImages}
               onClick={handleLikeCourse}
             />
           ) : (
-            <Image
+            <img
               src="/course/iconLike.svg"
               alt="likeImage"
               className={styles.interactionImages}
@@ -100,14 +96,14 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
             />
           )}
           {favorited ? (
-            <Image
+            <img
               src="/course/iconFavorited.svg"
               alt="iconFavorited"
               className={styles.interactionImages}
               onClick={handleFavCourse}
             />
           ) : (
-            <Image
+            <img
               src="/course/iconAddFav.svg"
               alt="iconAddFav"
               className={styles.interactionImages}
