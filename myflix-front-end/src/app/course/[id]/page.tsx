@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import { Button, Container } from "reactstrap";
 import { EpisodeList } from "@/components/EpisodeList/episodeList";
 import { Footer } from "@/components/common/Footer/footer";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
+  const router = useRouter();
   const [course, setCourse] = useState<CourseType>();
   const [liked, setLiked] = useState(false);
   const [favorited, setFavorited] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getCourse = async function () {
     if (typeof params.id !== "string") return;
@@ -49,7 +51,17 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     }
   };
 
+  useEffect(() => {
+    if (!sessionStorage.getItem("myflix-token")) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   if (course === undefined) return <PageSpinner />;
+
+  if (loading) return <PageSpinner />;
 
   return (
     <main>

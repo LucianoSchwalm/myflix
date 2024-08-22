@@ -5,11 +5,25 @@ import styles from "../../styles/profile.module.scss";
 import { UserForm } from "@/components/Profile/User/user";
 import { HeaderAuth } from "@/components/common/HeaderAuth/headerAuth";
 import { Footer } from "@/components/common/Footer/footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PasswordForm } from "@/components/Profile/Password/password";
+import { useRouter } from "next/router";
+import { PageSpinner } from "@/components/common/Spinner/spinner";
 
 const Profile = () => {
   const [form, setForm] = useState("userForm");
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("myflix-token")) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) return <PageSpinner />;
 
   return (
     <>

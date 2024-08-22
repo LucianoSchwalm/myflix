@@ -13,6 +13,7 @@ const EpisodePlayer = ({ params }: { params: { id: string } }) => {
   const [getEpisodeTime, setGetEpisodeTime] = useState(0);
   const [episodeTime, setEpisodeTime] = useState(0);
   const [isReady, setIsReady] = useState(false);
+  const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
   const episodeOrder = params.id;
   const episodeId = searchParams.get("episodeId");
@@ -20,6 +21,14 @@ const EpisodePlayer = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
   const playerRef = useRef<ReactPlayer>(null);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("myflix-token")) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   const handleGetEpisodeTime = async () => {
     if (typeof episodeId !== "string") return;
@@ -87,6 +96,7 @@ const EpisodePlayer = ({ params }: { params: { id: string } }) => {
   }, [courseId]);
 
   if (course?.episodes === undefined) return <PageSpinner />;
+  if (loading) return <PageSpinner />;
 
   if (parseInt(episodeOrder + 1) < course?.episodes?.length) {
     if (

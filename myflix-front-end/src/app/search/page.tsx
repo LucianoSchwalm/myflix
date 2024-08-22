@@ -1,17 +1,30 @@
 "use client";
 import styles from "../../styles/search.module.scss";
 import { HeaderAuth } from "../../components/common/HeaderAuth/headerAuth";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { courseService, CourseType } from "@/services/courseService";
 import { Container } from "reactstrap";
 import { SearchCard } from "@/components/SearchCard/searchCard";
 import { Footer } from "@/components/common/Footer/footer";
+import { PageSpinner } from "@/components/common/Spinner/spinner";
 
 const Search = function () {
+  const [loading, setLoading] = useState(true);
+  const [searchResult, setSearchResult] = useState<CourseType[]>([]);
   const searchParams = useSearchParams();
   const searchName = searchParams.get("name");
-  const [searchResult, setSearchResult] = useState<CourseType[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("myflix-token")) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) return <PageSpinner />;
 
   const searchCourses = async () => {
     if (typeof searchName === "string") {
@@ -20,6 +33,7 @@ const Search = function () {
     }
   };
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     searchCourses();
   }, [searchName]);
