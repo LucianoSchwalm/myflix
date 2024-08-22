@@ -5,7 +5,7 @@ import SlideComponent from "@/components/common/SlideComponent/slideComponent";
 import { PageSpinner } from "@/components/common/Spinner/spinner";
 
 export const FavoriteCategory = () => {
-  const { data, error } = useSWR("/newest", courseService.getNewestCourses);
+  const { data, error } = useSWR("/favorites", courseService.getFavCourses);
 
   if (error) return error;
   if (!data) {
