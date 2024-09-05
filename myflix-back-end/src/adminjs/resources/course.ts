@@ -39,6 +39,7 @@ export const courseResourceFeatures: FeatureType[] = [
     provider: {
       local: {
         bucket: path.join(__dirname, "../../../public"),
+        opts: {},
       },
     },
     properties: {
