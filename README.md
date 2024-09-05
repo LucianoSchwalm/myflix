@@ -5,8 +5,18 @@ This project is made with Nextjs and sass as Front-end, Nodejs and Adminjs in th
 
 ## How to run
 
+### Back end
+
 ```
 cd myflix-back-end
+npm install
+npm run dev
+```
+
+### Front end
+
+```
+cd ./myflix-front-end
 npm install
 npm run dev
 ```
